@@ -11,9 +11,9 @@ resource "google_compute_instance" "sandbox" {
   tags = ["iap-ssh-enabled"]
 
   labels = {
-    sandbox     = var.sandbox_name
-    owner       = replace(var.sandbox_config.instance.owner_email, "/[@.]/", "-")
-    managed_by  = "terraform"
+    sandbox    = var.sandbox_name
+    owner      = replace(var.sandbox_config.instance.owner_email, "/[@.]/", "-")
+    managed_by = "terraform"
   }
 
   # Boot disk

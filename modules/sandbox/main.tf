@@ -5,6 +5,6 @@
 # =============================================================================
 
 locals {
-  instance_name = "${var.sandbox_name}-sandbox"
+  instance_name  = "${var.sandbox_name}-sandbox"
   data_disk_name = "${var.sandbox_name}-sandbox-data"
 }

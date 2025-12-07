@@ -10,7 +10,7 @@ locals {
   nat_name     = "${local.network_name}-nat"
 
   # Service Account naming
-  sandbox_sa_name = "sa-w-sandbox"
+  sandbox_sa_name  = "sa-w-sandbox"
   sandbox_sa_email = var.enable_iam ? module.iam[0].sandbox_service_account_email : null
 
   # Firewall naming
