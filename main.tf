@@ -92,5 +92,12 @@ module "sandbox" {
   # Group for shared access (optional)
   group_team_email = var.group_team_email
 
+  # Auto-shutdown configuration
+  auto_shutdown_enabled  = var.auto_shutdown_enabled
+  auto_shutdown_schedule = var.auto_shutdown_schedule
+  auto_start_enabled     = var.auto_start_enabled
+  auto_start_schedule    = var.auto_start_schedule
+  schedule_timezone      = var.schedule_timezone
+
   depends_on = [module.api_enabling, module.network, module.iam]
 }

@@ -99,3 +99,37 @@ variable "subnet_cidr" {
   type        = string
   default     = "10.128.0.0/20"
 }
+
+# =============================================================================
+# AUTO-SHUTDOWN CONFIGURATION
+# =============================================================================
+
+variable "auto_shutdown_enabled" {
+  description = "Enable automatic shutdown of sandbox VMs"
+  type        = bool
+  default     = true
+}
+
+variable "auto_shutdown_schedule" {
+  description = "Cron schedule for auto-shutdown (default: 19:00 Sao Paulo time)"
+  type        = string
+  default     = "0 19 * * *"
+}
+
+variable "auto_start_enabled" {
+  description = "Enable automatic start of VMs in the morning"
+  type        = bool
+  default     = false
+}
+
+variable "auto_start_schedule" {
+  description = "Cron schedule for auto-start (default: 08:00 Sao Paulo time, weekdays)"
+  type        = string
+  default     = "0 8 * * 1-5"
+}
+
+variable "schedule_timezone" {
+  description = "Timezone for schedules"
+  type        = string
+  default     = "America/Sao_Paulo"
+}

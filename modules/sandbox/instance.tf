@@ -91,6 +91,9 @@ resource "google_compute_instance" "sandbox" {
     preemptible         = false
   }
 
+  # Attach auto-shutdown schedule if enabled
+  resource_policies = var.auto_shutdown_enabled ? [google_compute_resource_policy.auto_shutdown[0].self_link] : []
+
   lifecycle {
     ignore_changes = [
       # Ignore changes to metadata that might be added by GCP
