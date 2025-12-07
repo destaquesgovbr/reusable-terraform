@@ -21,35 +21,35 @@ output "subnetwork_id" {
 # IAM OUTPUTS
 # =============================================================================
 
-output "sandbox_service_account_email" {
-  description = "Email of the sandbox service account"
-  value       = var.enable_iam ? module.iam[0].sandbox_service_account_email : null
+output "devvm_service_account_email" {
+  description = "Email of the dev VM service account"
+  value       = var.enable_iam ? module.iam[0].devvm_service_account_email : null
 }
 
-output "sandbox_service_account_id" {
-  description = "ID of the sandbox service account"
-  value       = var.enable_iam ? module.iam[0].sandbox_service_account_id : null
+output "devvm_service_account_id" {
+  description = "ID of the dev VM service account"
+  value       = var.enable_iam ? module.iam[0].devvm_service_account_id : null
 }
 
 # =============================================================================
-# SANDBOX OUTPUTS
+# DEV VM OUTPUTS
 # =============================================================================
 
-output "sandbox_instances" {
-  description = "Map of sandbox instance details"
+output "devvm_instances" {
+  description = "Map of dev VM instance details"
   value = {
-    for name, sandbox in module.sandbox : name => {
-      instance_name = sandbox.instance_name
-      instance_id   = sandbox.instance_id
-      zone          = sandbox.zone
-      ssh_command   = sandbox.ssh_command
+    for name, devvm in module.devvm : name => {
+      instance_name = devvm.instance_name
+      instance_id   = devvm.instance_id
+      zone          = devvm.zone
+      ssh_command   = devvm.ssh_command
     }
   }
 }
 
-output "sandbox_ssh_commands" {
-  description = "SSH commands to connect to each sandbox via IAP"
+output "devvm_ssh_commands" {
+  description = "SSH commands to connect to each dev VM via IAP"
   value = {
-    for name, sandbox in module.sandbox : name => sandbox.ssh_command
+    for name, devvm in module.devvm : name => devvm.ssh_command
   }
 }

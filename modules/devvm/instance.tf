@@ -2,26 +2,26 @@
 # COMPUTE INSTANCE
 # =============================================================================
 
-resource "google_compute_instance" "sandbox" {
+resource "google_compute_instance" "devvm" {
   project      = var.project_id
   name         = local.instance_name
-  machine_type = var.sandbox_config.instance.machine_type
+  machine_type = var.devvm_config.instance.machine_type
   zone         = var.zone
 
   tags = ["iap-ssh-enabled"]
 
   labels = {
-    sandbox    = var.sandbox_name
-    owner      = replace(var.sandbox_config.instance.owner_email, "/[@.]/", "-")
+    devvm      = var.devvm_name
+    owner      = replace(var.devvm_config.instance.owner_email, "/[@.]/", "-")
     managed_by = "terraform"
   }
 
   # Boot disk
   boot_disk {
     initialize_params {
-      image = var.sandbox_config.instance.image
-      size  = var.sandbox_config.instance.boot_disk_size_gb
-      type  = var.sandbox_config.instance.boot_disk_type
+      image = var.devvm_config.instance.image
+      size  = var.devvm_config.instance.boot_disk_size_gb
+      type  = var.devvm_config.instance.boot_disk_type
     }
   }
 
@@ -41,7 +41,7 @@ resource "google_compute_instance" "sandbox" {
 
   # Service account for automatic authentication
   service_account {
-    email  = var.sandbox_service_account_email
+    email  = var.devvm_service_account_email
     scopes = ["cloud-platform"]
   }
 

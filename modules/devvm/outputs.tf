@@ -1,16 +1,16 @@
 output "instance_name" {
-  description = "Name of the sandbox VM"
-  value       = google_compute_instance.sandbox.name
+  description = "Name of the dev VM"
+  value       = google_compute_instance.devvm.name
 }
 
 output "instance_id" {
-  description = "ID of the sandbox VM"
-  value       = google_compute_instance.sandbox.id
+  description = "ID of the dev VM"
+  value       = google_compute_instance.devvm.id
 }
 
 output "instance_self_link" {
-  description = "Self-link of the sandbox VM"
-  value       = google_compute_instance.sandbox.self_link
+  description = "Self-link of the dev VM"
+  value       = google_compute_instance.devvm.self_link
 }
 
 output "zone" {
@@ -20,7 +20,7 @@ output "zone" {
 
 output "internal_ip" {
   description = "Internal IP address of the VM"
-  value       = google_compute_instance.sandbox.network_interface[0].network_ip
+  value       = google_compute_instance.devvm.network_interface[0].network_ip
 }
 
 output "data_disk_name" {
@@ -35,5 +35,5 @@ output "data_disk_id" {
 
 output "ssh_command" {
   description = "SSH command to connect via IAP"
-  value       = "gcloud compute ssh ${google_compute_instance.sandbox.name} --zone=${var.zone} --tunnel-through-iap"
+  value       = "gcloud compute ssh ${google_compute_instance.devvm.name} --zone=${var.zone} --tunnel-through-iap"
 }

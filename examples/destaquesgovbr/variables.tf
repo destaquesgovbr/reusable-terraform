@@ -22,8 +22,8 @@ variable "zone" {
   default     = "southamerica-east1-a"
 }
 
-variable "sandboxes" {
-  description = "Map of sandbox configurations"
+variable "devvms" {
+  description = "Map of dev VM configurations"
   type = map(object({
     instance = object({
       machine_type      = string

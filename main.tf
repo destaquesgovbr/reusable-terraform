@@ -2,11 +2,11 @@
 # REUSABLE TERRAFORM MODULE - GCP Development Environments
 # =============================================================================
 #
-# This module provisions development sandbox environments on GCP including:
+# This module provisions development VM environments on GCP including:
 # - API enablement
 # - VPC networking with IAP access
 # - Service accounts and IAM
-# - Development VMs (sandboxes)
+# - Development VMs (devvms)
 #
 # =============================================================================
 
@@ -56,38 +56,38 @@ module "iam" {
   data_product     = var.data_product
   group_team_email = var.group_team_email
 
-  sandbox_sa_name  = local.sandbox_sa_name
-  sandbox_sa_roles = local.sandbox_sa_roles
-  developer_roles  = local.developer_roles
+  devvm_sa_name   = local.devvm_sa_name
+  devvm_sa_roles  = local.devvm_sa_roles
+  developer_roles = local.developer_roles
 
-  # Individual user emails from sandbox definitions
-  user_emails = [for name, config in var.sandbox.sandboxes : config.instance.owner_email]
+  # Individual user emails from devvm definitions
+  user_emails = [for name, config in var.devvm.devvms : config.instance.owner_email]
 
   depends_on = [module.api_enabling]
 }
 
 # -----------------------------------------------------------------------------
-# SANDBOX VMs
+# DEV VMs
 # -----------------------------------------------------------------------------
 
-module "sandbox" {
-  for_each = var.sandbox.sandboxes
-  source   = "./modules/sandbox"
+module "devvm" {
+  for_each = var.devvm.devvms
+  source   = "./modules/devvm"
 
   project_id   = var.project_id
   region       = var.region
   zone         = var.zone
   data_product = var.data_product
 
-  sandbox_name   = each.key
-  sandbox_config = each.value
+  devvm_name   = each.key
+  devvm_config = each.value
 
   # Network configuration
   network_id    = var.enable_network ? module.network[0].network_id : null
   subnetwork_id = each.value.instance.subnetwork != null ? each.value.instance.subnetwork : (var.enable_network ? module.network[0].subnetwork_id : null)
 
   # Service account
-  sandbox_service_account_email = local.sandbox_sa_email
+  devvm_service_account_email = local.devvm_sa_email
 
   # Group for shared access (optional)
   group_team_email = var.group_team_email

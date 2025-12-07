@@ -23,11 +23,11 @@ resource "google_project_iam_member" "group_resource_editor" {
   member  = "group:${var.group_team_email}"
 }
 
-# Allow group to use sandbox SA
-resource "google_service_account_iam_member" "group_use_sandbox_sa" {
+# Allow group to use dev VM SA
+resource "google_service_account_iam_member" "group_use_devvm_sa" {
   count = var.group_team_email != null ? 1 : 0
 
-  service_account_id = google_service_account.sandbox.name
+  service_account_id = google_service_account.devvm.name
   role               = "roles/iam.serviceAccountUser"
   member             = "group:${var.group_team_email}"
 }
@@ -57,11 +57,11 @@ resource "google_project_iam_member" "user_resource_editor" {
   member  = "user:${each.value}"
 }
 
-# Allow individual users to use sandbox SA
-resource "google_service_account_iam_member" "user_use_sandbox_sa" {
+# Allow individual users to use dev VM SA
+resource "google_service_account_iam_member" "user_use_devvm_sa" {
   for_each = var.group_team_email == null ? toset(var.user_emails) : []
 
-  service_account_id = google_service_account.sandbox.name
+  service_account_id = google_service_account.devvm.name
   role               = "roles/iam.serviceAccountUser"
   member             = "user:${each.value}"
 }

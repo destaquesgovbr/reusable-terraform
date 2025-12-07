@@ -18,13 +18,13 @@ variable "data_product" {
   type        = string
 }
 
-variable "sandbox_name" {
-  description = "Name of the sandbox (used as prefix for resources)"
+variable "devvm_name" {
+  description = "Name of the dev VM (used as prefix for resources)"
   type        = string
 }
 
-variable "sandbox_config" {
-  description = "Configuration for this sandbox"
+variable "devvm_config" {
+  description = "Configuration for this dev VM"
   type = object({
     instance = object({
       machine_type      = string
@@ -52,8 +52,8 @@ variable "subnetwork_id" {
   type        = string
 }
 
-variable "sandbox_service_account_email" {
-  description = "Email of the sandbox service account"
+variable "devvm_service_account_email" {
+  description = "Email of the dev VM service account"
   type        = string
 }
 

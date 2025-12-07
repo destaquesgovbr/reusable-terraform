@@ -57,13 +57,13 @@ variable "enable_iam" {
 }
 
 # =============================================================================
-# SANDBOX CONFIGURATION
+# DEV VM CONFIGURATION
 # =============================================================================
 
-variable "sandbox" {
-  description = "Sandbox configuration for development VMs"
+variable "devvm" {
+  description = "Dev VM configuration for development VMs"
   type = object({
-    sandboxes = optional(map(object({
+    devvms = optional(map(object({
       instance = object({
         machine_type      = string
         owner_email       = string
@@ -80,7 +80,7 @@ variable "sandbox" {
     })), {})
   })
   default = {
-    sandboxes = {}
+    devvms = {}
   }
 }
 
@@ -91,7 +91,7 @@ variable "sandbox" {
 variable "network_name" {
   description = "Name for the VPC network"
   type        = string
-  default     = null # Will default to {data_product}-sandbox-network
+  default     = null # Will default to {data_product}-devvm-network
 }
 
 variable "subnet_cidr" {
@@ -105,7 +105,7 @@ variable "subnet_cidr" {
 # =============================================================================
 
 variable "auto_shutdown_enabled" {
-  description = "Enable automatic shutdown of sandbox VMs"
+  description = "Enable automatic shutdown of dev VMs"
   type        = bool
   default     = true
 }

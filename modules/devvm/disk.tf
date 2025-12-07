@@ -7,13 +7,13 @@
 resource "google_compute_disk" "data" {
   project = var.project_id
   name    = local.data_disk_name
-  type    = var.sandbox_config.instance.data_disk_type
-  size    = var.sandbox_config.instance.data_disk_size_gb
+  type    = var.devvm_config.instance.data_disk_type
+  size    = var.devvm_config.instance.data_disk_size_gb
   zone    = var.zone
 
   labels = {
-    sandbox    = var.sandbox_name
-    owner      = replace(var.sandbox_config.instance.owner_email, "/[@.]/", "-")
+    devvm      = var.devvm_name
+    owner      = replace(var.devvm_config.instance.owner_email, "/[@.]/", "-")
     managed_by = "terraform"
   }
 

@@ -14,14 +14,14 @@ variable "group_team_email" {
   default     = null
 }
 
-variable "sandbox_sa_name" {
-  description = "Account ID for the sandbox service account"
+variable "devvm_sa_name" {
+  description = "Account ID for the dev VM service account"
   type        = string
-  default     = "sa-w-sandbox"
+  default     = "sa-w-devvm"
 }
 
-variable "sandbox_sa_roles" {
-  description = "List of roles to grant to the sandbox service account"
+variable "devvm_sa_roles" {
+  description = "List of roles to grant to the dev VM service account"
   type        = list(string)
   default = [
     "roles/bigquery.user",

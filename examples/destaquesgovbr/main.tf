@@ -2,7 +2,7 @@
 # EXAMPLE: DestaquesGovBR Development Environment
 # =============================================================================
 # This example shows how to use the reusable-terraform module to provision
-# development sandbox VMs for the DestaquesGovBR project.
+# development VMs for the DestaquesGovBR project.
 # =============================================================================
 
 terraform {
@@ -40,9 +40,9 @@ module "dev_environment" {
   enable_network = true
   enable_iam     = true
 
-  # Sandbox configuration
-  sandbox = {
-    sandboxes = var.sandboxes
+  # Dev VM configuration
+  devvm = {
+    devvms = var.devvms
   }
 }
 
@@ -55,12 +55,12 @@ output "network_name" {
   value       = module.dev_environment.network_name
 }
 
-output "sandbox_ssh_commands" {
-  description = "SSH commands to connect to each sandbox"
-  value       = module.dev_environment.sandbox_ssh_commands
+output "devvm_ssh_commands" {
+  description = "SSH commands to connect to each dev VM"
+  value       = module.dev_environment.devvm_ssh_commands
 }
 
-output "sandbox_service_account" {
-  description = "Email of the sandbox service account"
-  value       = module.dev_environment.sandbox_service_account_email
+output "devvm_service_account" {
+  description = "Email of the dev VM service account"
+  value       = module.dev_environment.devvm_service_account_email
 }

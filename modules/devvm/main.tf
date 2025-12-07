@@ -1,10 +1,10 @@
 # =============================================================================
-# SANDBOX MODULE
+# DEV VM MODULE
 # =============================================================================
-# Creates a development VM (sandbox) with persistent data disk and IAP access
+# Creates a development VM (devvm) with persistent data disk and IAP access
 # =============================================================================
 
 locals {
-  instance_name  = "${var.sandbox_name}-sandbox"
-  data_disk_name = "${var.sandbox_name}-sandbox-data"
+  instance_name  = "${var.devvm_name}-devvm"
+  data_disk_name = "${var.devvm_name}-devvm-data"
 }
