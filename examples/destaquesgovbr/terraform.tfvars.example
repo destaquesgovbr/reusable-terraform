@@ -1,0 +1,32 @@
+# =============================================================================
+# Example terraform.tfvars
+# =============================================================================
+# Copy this file to terraform.tfvars and customize the values
+# =============================================================================
+
+project_id   = "inspire-7-finep"
+data_product = "destaquesgovbr"
+region       = "southamerica-east1"
+zone         = "southamerica-east1-a"
+
+# Add your sandboxes here
+sandboxes = {
+  # Example: Development sandbox for a specific user
+  dev1 = {
+    instance = {
+      machine_type = "e2-standard-4" # 4 vCPU, 16GB RAM
+      owner_email  = "developer@example.com"
+      image        = "ubuntu-os-cloud/ubuntu-2204-lts"
+    }
+  }
+
+  # Example: Another developer
+  # dev2 = {
+  #   instance = {
+  #     machine_type      = "e2-standard-2"  # 2 vCPU, 8GB RAM
+  #     owner_email       = "developer2@example.com"
+  #     boot_disk_size_gb = 100
+  #     data_disk_size_gb = 200
+  #   }
+  # }
+}
