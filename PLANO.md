@@ -12,7 +12,7 @@
 | 5 | Integração destaquesgovbr-infra | ✅ Concluído |
 | 6 | Auto-shutdown de VMs | ✅ Concluído |
 | 7 | Módulo clupa_data (BigQuery/GCS) | ⏳ Adiado |
-| 8 | CI/CD com GitHub Actions | ⏳ Pendente |
+| 8 | CI/CD com GitHub Actions | ✅ Concluído |
 | 9 | Versionamento no GitHub | ✅ Concluído |
 
 ---
@@ -55,41 +55,15 @@ schedule_timezone      = "America/Sao_Paulo"
 
 ---
 
-## Próximas Fases
-
-### Fase 8: CI/CD com GitHub Actions ⏳
-
-**Objetivo:** Automatizar validação e deploy
-
-**Arquivos a criar:**
-```
-.github/
-└── workflows/
-    └── terraform-validate.yml   # Valida PRs
-```
-
-**Workflow de validação:**
-```yaml
-name: Terraform Validate
-on:
-  pull_request:
-    paths: ['**/*.tf']
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
-      - run: terraform fmt -check -recursive
-      - run: |
-          for dir in modules/*/; do
-            terraform -chdir="$dir" init -backend=false
-            terraform -chdir="$dir" validate
-          done
-```
+### Fase 8: CI/CD ✅
+- Workflow `.github/workflows/terraform-validate.yml` criado
+- Executa em push e PRs para main
+- Valida: formato, módulo raiz, submódulos, exemplos
+- Workflow: https://github.com/destaquesgovbr/reusable-terraform/actions
 
 ---
+
+## Próximas Fases (Adiadas)
 
 ### Fase 7: Módulo clupa_data (BigQuery/GCS) - ADIADO
 
@@ -154,3 +128,4 @@ gcloud compute instances start nitai-sandbox --zone=southamerica-east1-a
 | 2024-12-06 | Repositório GitHub criado (v1.0.0) |
 | 2024-12-06 | Auto-shutdown implementado (v1.1.0) |
 | 2024-12-06 | PR #8 criado no destaquesgovbr-infra |
+| 2024-12-06 | CI/CD workflow adicionado |
