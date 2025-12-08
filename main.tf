@@ -101,3 +101,24 @@ module "devvm" {
 
   depends_on = [module.api_enabling, module.network, module.iam]
 }
+
+# -----------------------------------------------------------------------------
+# STREAMLIT
+# -----------------------------------------------------------------------------
+
+module "streamlit" {
+  count  = var.enable_streamlit ? 1 : 0
+  source = "./modules/streamlit"
+
+  project_id              = var.project_id
+  region                  = var.region
+  data_product            = var.data_product
+  github_organization     = var.github_organization
+  github_actions_sa_email = var.enable_iam ? module.iam[0].github_actions_sa_email : null
+
+  streamlit_apps         = var.streamlit.apps
+  artifact_registry_name = var.streamlit.artifact_registry_name
+  shared_sa_roles        = var.streamlit.shared_sa_roles
+
+  depends_on = [module.api_enabling]
+}

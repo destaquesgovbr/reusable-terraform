@@ -39,3 +39,29 @@ resource "google_service_account_iam_member" "devvm_impersonate_self" {
   role               = "roles/iam.serviceAccountTokenCreator"
   member             = "serviceAccount:${google_service_account.devvm.email}"
 }
+
+# -----------------------------------------------------------------------------
+# GitHub Actions Service Account
+# Used by GitHub Actions workflows for CI/CD deployments
+# -----------------------------------------------------------------------------
+
+resource "google_service_account" "github_actions" {
+  project      = var.project_id
+  account_id   = "github-actions"
+  display_name = "GitHub Actions CI/CD"
+  description  = "Service account for GitHub Actions workflows"
+}
+
+# Grant permissions for Cloud Run deployment and Artifact Registry
+resource "google_project_iam_member" "github_actions_roles" {
+  for_each = toset([
+    "roles/run.admin",
+    "roles/iam.serviceAccountUser",
+    "roles/artifactregistry.writer",
+    "roles/storage.admin",
+  ])
+
+  project = var.project_id
+  role    = each.value
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}

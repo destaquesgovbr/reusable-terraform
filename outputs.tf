@@ -53,3 +53,27 @@ output "devvm_ssh_commands" {
     for name, devvm in module.devvm : name => devvm.ssh_command
   }
 }
+
+# =============================================================================
+# STREAMLIT OUTPUTS
+# =============================================================================
+
+output "streamlit_artifact_registry" {
+  description = "Artifact Registry repository for Streamlit apps"
+  value       = var.enable_streamlit ? module.streamlit[0].artifact_registry_name : null
+}
+
+output "streamlit_shared_sa_email" {
+  description = "Email of the shared Streamlit service account"
+  value       = var.enable_streamlit ? module.streamlit[0].shared_service_account_email : null
+}
+
+output "streamlit_app_urls" {
+  description = "URLs of deployed Streamlit apps"
+  value       = var.enable_streamlit ? module.streamlit[0].app_urls : {}
+}
+
+output "streamlit_app_service_accounts" {
+  description = "Service account emails for Streamlit apps"
+  value       = var.enable_streamlit ? module.streamlit[0].app_service_accounts : {}
+}

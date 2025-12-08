@@ -56,6 +56,12 @@ variable "enable_iam" {
   default     = true
 }
 
+variable "enable_streamlit" {
+  description = "Enable the streamlit module"
+  type        = bool
+  default     = false
+}
+
 # =============================================================================
 # DEV VM CONFIGURATION
 # =============================================================================
@@ -132,4 +138,36 @@ variable "schedule_timezone" {
   description = "Timezone for schedules"
   type        = string
   default     = "America/Sao_Paulo"
+}
+
+# =============================================================================
+# STREAMLIT CONFIGURATION
+# =============================================================================
+
+variable "github_organization" {
+  description = "GitHub organization for Workload Identity (required if enable_streamlit = true)"
+  type        = string
+  default     = null
+}
+
+variable "streamlit" {
+  description = "Streamlit platform configuration"
+  type = object({
+    apps = optional(map(object({
+      repository                = string
+      description               = string
+      resource_tier             = string
+      dedicated_service_account = optional(bool, false)
+      secrets                   = optional(list(string), [])
+      min_instances             = optional(number, 0)
+      max_instances             = optional(number)
+      port                      = optional(number, 8501)
+      env_vars                  = optional(map(string), {})
+    })), {})
+    artifact_registry_name = optional(string)
+    shared_sa_roles        = optional(list(string), ["roles/storage.objectViewer"])
+  })
+  default = {
+    apps = {}
+  }
 }

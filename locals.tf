@@ -48,7 +48,8 @@ locals {
 # =============================================================================
 
 locals {
-  required_apis = [
+  # Base APIs for devvm
+  base_required_apis = [
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "compute.googleapis.com",
@@ -59,4 +60,16 @@ locals {
     "cloudresourcemanager.googleapis.com",
     "iap.googleapis.com",
   ]
+
+  # Additional APIs for Streamlit
+  streamlit_apis = var.enable_streamlit ? [
+    "run.googleapis.com",
+    "artifactregistry.googleapis.com",
+  ] : []
+
+  # Merge all required APIs
+  required_apis = distinct(concat(
+    local.base_required_apis,
+    local.streamlit_apis
+  ))
 }
