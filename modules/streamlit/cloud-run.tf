@@ -18,8 +18,8 @@ resource "google_cloud_run_v2_service" "streamlit_app" {
 
     # Container configuration
     containers {
-      # Image updated by CI/CD
-      image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.streamlit.repository_id}/${each.key}:latest"
+      # Image updated by CI/CD - starts with placeholder until first deploy
+      image = lookup(each.value, "initial_image", "us-docker.pkg.dev/cloudrun/container/hello")
 
       # Resource limits based on tier
       resources {
