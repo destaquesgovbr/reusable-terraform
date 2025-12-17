@@ -30,7 +30,7 @@
 - Variável `sandboxes` adicionada
 - VM `nitai-sandbox` criada e funcionando
 - Acesso via IAP SSH funcionando
-- PR: https://github.com/destaquesgovbr/destaquesgovbr-infra/pull/8
+- PR: https://github.com/destaquesgovbr/infra/pull/8
 
 ### Fase 6: Auto-shutdown ✅
 - Instance Schedule configurado via `google_compute_resource_policy`
