@@ -19,7 +19,7 @@ resource "google_cloud_run_v2_service" "streamlit_app" {
     # Container configuration
     containers {
       # Image updated by CI/CD - starts with placeholder until first deploy
-      image = lookup(each.value, "initial_image", "us-docker.pkg.dev/cloudrun/container/hello")
+      image = coalesce(each.value.initial_image, "us-docker.pkg.dev/cloudrun/container/hello")
 
       # Resource limits based on tier
       resources {
