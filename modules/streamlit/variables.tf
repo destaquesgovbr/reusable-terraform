@@ -35,6 +35,7 @@ variable "streamlit_apps" {
     max_instances             = optional(number)
     port                      = optional(number, 8501)
     env_vars                  = optional(map(string), {})
+    initial_image             = optional(string) # Docker image for initial deployment
   }))
   default = {}
 }
