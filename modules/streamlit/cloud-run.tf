@@ -83,6 +83,7 @@ resource "google_cloud_run_v2_service" "streamlit_app" {
     ignore_changes = [
       template[0].containers[0].image,
       scaling,
+      template[0].scaling,
     ]
   }
 }
