@@ -2,9 +2,10 @@
 resource "google_cloud_run_v2_service" "streamlit_app" {
   for_each = var.streamlit_apps
 
-  name     = "streamlit-${each.key}"
-  location = var.region
-  ingress  = "INGRESS_TRAFFIC_ALL"
+  name                = "streamlit-${each.key}"
+  location            = var.region
+  ingress             = "INGRESS_TRAFFIC_ALL"
+  deletion_protection = false
 
   template {
     # Service account (shared or dedicated)
