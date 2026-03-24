@@ -58,12 +58,26 @@ resource "google_cloud_run_v2_service" "streamlit_app" {
         }
       }
 
-      # Environment variables
+      # Environment variables (plain text)
       dynamic "env" {
         for_each = lookup(each.value, "env_vars", {})
         content {
           name  = env.key
           value = env.value
+        }
+      }
+
+      # Environment variables from Secret Manager
+      dynamic "env" {
+        for_each = lookup(each.value, "secret_env_vars", {})
+        content {
+          name = env.key
+          value_source {
+            secret_key_ref {
+              secret  = env.value
+              version = "latest"
+            }
+          }
         }
       }
     }
