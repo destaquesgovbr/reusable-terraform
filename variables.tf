@@ -163,6 +163,8 @@ variable "streamlit" {
       max_instances             = optional(number)
       port                      = optional(number, 8501)
       env_vars                  = optional(map(string), {})
+      secret_env_vars           = optional(map(string), {})
+      initial_image             = optional(string)
     })), {})
     artifact_registry_name = optional(string)
     shared_sa_roles        = optional(list(string), ["roles/storage.objectViewer"])
