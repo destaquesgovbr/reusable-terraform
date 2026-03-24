@@ -35,6 +35,7 @@ variable "streamlit_apps" {
     max_instances             = optional(number)
     port                      = optional(number, 8501)
     env_vars                  = optional(map(string), {})
+    secret_env_vars           = optional(map(string), {}) # Map of ENV_NAME => secret_id from Secret Manager
     initial_image             = optional(string) # Docker image for initial deployment
   }))
   default = {}
