@@ -74,7 +74,7 @@ resource "google_cloud_run_v2_service" "streamlit_app" {
           name = env.key
           value_source {
             secret_key_ref {
-              secret  = env.value
+              secret  = "projects/${var.project_id}/secrets/${env.value}"
               version = "latest"
             }
           }
