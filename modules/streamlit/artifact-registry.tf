@@ -5,10 +5,12 @@ resource "google_artifact_registry_repository" "streamlit" {
   description   = "Docker repository for Streamlit applications"
   format        = "DOCKER"
 
-  # Keep the N most recent versions of each image (package). There is no DELETE
-  # policy on purpose: with only KEEP policies, Artifact Registry never deletes
-  # anything, so an image still referenced by a Cloud Run revision cannot be
-  # removed just because of its age.
+  # KEEP only, with no DELETE policy: Artifact Registry deletes nothing in this
+  # repository, whatever the age or the number of versions. Versions beyond the
+  # 30 most recent are NOT pruned. The KEEP rule only matters if a DELETE policy
+  # is added later: it then protects the 30 most recent versions of each image
+  # from that DELETE. This is the same setup as the other Docker repositories of
+  # the destaquesgovbr project.
   #
   # The previous policy (DELETE, tag_state = "ANY", older_than = 30 days)
   # deleted every image older than 30 days, including the ones serving Cloud
@@ -19,7 +21,7 @@ resource "google_artifact_registry_repository" "streamlit" {
     id     = "keep-minimum-versions"
     action = "KEEP"
     most_recent_versions {
-      keep_count = var.artifact_registry_keep_count
+      keep_count = 30
     }
   }
 }

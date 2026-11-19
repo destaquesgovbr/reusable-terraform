@@ -47,17 +47,6 @@ variable "artifact_registry_name" {
   default     = null # Will default to {data_product}-streamlit
 }
 
-variable "artifact_registry_keep_count" {
-  description = "Number of most recent versions of each image kept by the Artifact Registry cleanup policy (KEEP only: nothing is deleted by age)"
-  type        = number
-  default     = 30
-
-  validation {
-    condition     = var.artifact_registry_keep_count >= 1
-    error_message = "artifact_registry_keep_count must be at least 1."
-  }
-}
-
 variable "shared_sa_roles" {
   description = "IAM roles for the shared Streamlit service account"
   type        = list(string)
