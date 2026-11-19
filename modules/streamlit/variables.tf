@@ -36,7 +36,7 @@ variable "streamlit_apps" {
     port                      = optional(number, 8501)
     env_vars                  = optional(map(string), {})
     secret_env_vars           = optional(map(string), {}) # Map of ENV_NAME => secret_id from Secret Manager
-    initial_image             = optional(string) # Docker image for initial deployment
+    initial_image             = optional(string)          # Docker image for initial deployment
   }))
   default = {}
 }
@@ -45,6 +45,17 @@ variable "artifact_registry_name" {
   description = "Name for the Artifact Registry repository"
   type        = string
   default     = null # Will default to {data_product}-streamlit
+}
+
+variable "artifact_registry_keep_count" {
+  description = "Number of most recent versions of each image kept by the Artifact Registry cleanup policy (KEEP only: nothing is deleted by age)"
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.artifact_registry_keep_count >= 1
+    error_message = "artifact_registry_keep_count must be at least 1."
+  }
 }
 
 variable "shared_sa_roles" {

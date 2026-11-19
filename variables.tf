@@ -166,8 +166,9 @@ variable "streamlit" {
       secret_env_vars           = optional(map(string), {})
       initial_image             = optional(string)
     })), {})
-    artifact_registry_name = optional(string)
-    shared_sa_roles        = optional(list(string), ["roles/storage.objectViewer"])
+    artifact_registry_name       = optional(string)
+    artifact_registry_keep_count = optional(number, 30)
+    shared_sa_roles              = optional(list(string), ["roles/storage.objectViewer"])
   })
   default = {
     apps = {}

@@ -116,9 +116,10 @@ module "streamlit" {
   github_organization     = var.github_organization
   github_actions_sa_email = var.enable_iam ? module.iam[0].github_actions_sa_email : null
 
-  streamlit_apps         = var.streamlit.apps
-  artifact_registry_name = var.streamlit.artifact_registry_name
-  shared_sa_roles        = var.streamlit.shared_sa_roles
+  streamlit_apps               = var.streamlit.apps
+  artifact_registry_name       = var.streamlit.artifact_registry_name
+  artifact_registry_keep_count = var.streamlit.artifact_registry_keep_count
+  shared_sa_roles              = var.streamlit.shared_sa_roles
 
   depends_on = [module.api_enabling]
 }
